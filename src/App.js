@@ -57,8 +57,10 @@ const App: () => React$Node = () => {
         onChangeText={value => setPaybackYears(Number(value))}
         value={String(paybackYears)}
       />
-      <Text style={{textAlign: 'center'}}>Monthly payments will be:</Text>
-      <Text style={{textAlign: 'center'}}>${getMonthlyPayment()}/m</Text>
+      <View style={styles.results}>
+        <Text style={{textAlign: 'center'}}>Monthly payments will be:</Text>
+        <Text style={{textAlign: 'center'}}>${getMonthlyPayment()}/m</Text>
+      </View>
     </View>
   );
 };
@@ -73,6 +75,11 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: 'center',
     marginBottom: 10,
+  },
+  results: {
+    borderWidth: 1,
+    borderColor: 'black',
+    padding: 5,
   },
 });
 
