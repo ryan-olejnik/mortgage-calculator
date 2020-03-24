@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { formatNumber } from '../utils/helperFunctions';
 
 const MortgageAmountInput = props => {
   const onChange = value => {
@@ -16,7 +17,7 @@ const MortgageAmountInput = props => {
         placeholder={'mortgage amount'}
         style={styles.input}
         onChangeText={onChange}
-        value={props.mortgageAmount.toLocaleString()}
+        value={formatNumber(props.mortgageAmount)}
       />
     </View>
   );

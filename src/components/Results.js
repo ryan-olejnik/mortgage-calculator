@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Text, View } from 'react-native';
+import { formatNumber } from '../utils/helperFunctions';
 
 class Results extends React.Component {
   static propTypes = {
@@ -11,12 +12,11 @@ class Results extends React.Component {
     console.log('this.props.monthlyPayment=', this.props.monthlyPayment);
     // debugger;
     const roundedResult = Math.round(this.props.monthlyPayment);
-    const humanReadableResult = roundedResult.toLocaleString();
     return (
       <View style={styles.root}>
         <Text style={styles.header}>Monthly payments will be:</Text>
         <Text style={styles.result}>
-          ${humanReadableResult}/m
+          ${formatNumber(roundedResult)}/m
         </Text>
         {
           this.props.monthlyPayment > 4000
