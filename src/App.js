@@ -15,9 +15,13 @@ import {
   Alert
 } from 'react-native';
 import Slider from '@react-native-community/slider';
+import MortgageAmountInput from './components/MortgageAmountInput';
+import PaybackYearsInput from './components/PaybackYearsInput';
+import InterestRateInput from './components/InterestRateInput';
+import Results from './components/Results';
 
 const App: () => React$Node = () => {
-  const [mortgageAmount, setMortgageAmount] = useState(100000);
+  const [mortgageAmount, setMortgageAmount] = useState(400000);
   const [interestRate, setInterestRate] = useState(3);
   const [paybackYears, setPaybackYears] = useState(25);
 
@@ -27,60 +31,43 @@ const App: () => React$Node = () => {
     const n = paybackYears * 12; // Assuming MONTHLY
 
     const monthlyPayment = p * ((i * Math.pow((1+i), n))/(Math.pow((1+i), n) - 1));
-    return monthlyPayment.toFixed(0);
+    return monthlyPayment;
   };
 
   return (
     <View style={styles.root}>
       <Text style={styles.header}>Mortgage Calculator</Text>
-      <TextInput
-        placeholder={'mortgage amount'}
-        style={{borderWidth: 1, borderColor: 'black', marginBottom: 25}}
-        onChangeText={value => setMortgageAmount(Number(value))}
-        value={String(mortgageAmount)}
+      <MortgageAmountInput
+        mortgageAmount={mortgageAmount}
+        setMortgageAmount={setMortgageAmount.bind(this)}
       />
       <Text>Interest Rate - {interestRate.toFixed(2)} %</Text>
-      <Slider
-        step={0.01}
-        minimumValue={0}
-        maximumValue={6}
-        value={interestRate}
-        onValueChange={slideValue => setInterestRate(slideValue)}
-        minimumTrackTintColor="#1fb28a"
-        maximumTrackTintColor="#d3d3d3"
-        thumbTintColor="#b9e4c9"
-        style={{marginBottom: 20}}
+      <InterestRateInput
+        interestRate={interestRate}
+        setInterestRate={setInterestRate}
       />
-      <TextInput
-        placeholder={'Payback Years'}
-        style={{borderWidth: 1, borderColor: 'black', marginBottom: 25}}
-        onChangeText={value => setPaybackYears(Number(value))}
-        value={String(paybackYears)}
+      <PaybackYearsInput
+        paybackYears={paybackYears}
+        setPaybackYears={setPaybackYears}
       />
-      <View style={styles.results}>
-        <Text style={{textAlign: 'center'}}>Monthly payments will be:</Text>
-        <Text style={{textAlign: 'center'}}>${getMonthlyPayment()}/m</Text>
-      </View>
+      <Results
+        monthlyPayment={getMonthlyPayment()}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
-    // backgroundColor: '#8cacfa',
+    backgroundColor: 'rgba(181,250,156,0.38)',
     height: '100%',
-    padding: 20,
+    padding: 20
   },
   header: {
-    fontSize: 25,
+    fontSize: 32,
     textAlign: 'center',
-    marginBottom: 10,
-  },
-  results: {
-    borderWidth: 1,
-    borderColor: 'black',
-    padding: 5,
-  },
+    marginBottom: 20
+  }
 });
 
 export default App;
